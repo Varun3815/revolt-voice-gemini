@@ -1,20 +1,144 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Revolt Voice (Gemini Live)</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-  </head>
-  <body style="font-family: system-ui, -apple-system, Segoe UI, Roboto; margin: 2rem;">
-    <h1>Revolt Voice (Gemini Live)</h1>
-    <p>Click Start, speak. Click again to stop. Interrupt by speaking over the model.</p>
-    <button id="start">Start</button>
-    <span id="status">idle</span>
-    <div style="margin-top:1rem">
-      <strong>Input:</strong> <span id="in-txt"></span><br/>
-      <strong>Output:</strong> <span id="out-txt"></span>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Revolt AI Voice Assistant</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+        :root {
+            --primary-color: #ff4500;
+            --background-color: #121212;
+            --surface-color: #1e1e1e;
+            --text-color: #e0e0e0;
+            --text-secondary-color: #a0a0a0;
+            --border-color: #333;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background-color: var(--surface-color);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            padding: 2rem;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        header {
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        .status-bar {
+            text-align: center;
+            padding: 0.75rem;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            font-weight: 300;
+            min-height: 1.5em;
+            transition: all 0.3s ease;
+        }
+
+        .status-bar.connected { background-color: #2e7d32; }
+        .status-bar.error { background-color: #d32f2f; }
+        .status-bar.connecting { background-color: #1976d2; }
+        
+        .transcript-box {
+            background-color: var(--background-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            min-height: 100px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .transcript-box h3 {
+            margin: 0 0 0.5rem 0;
+            color: var(--primary-color);
+            font-size: 1rem;
+            font-weight: 400;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .transcript-box p {
+            margin: 0;
+            color: var(--text-secondary-color);
+            line-height: 1.5;
+        }
+        
+        #start {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            align-self: center;
+        }
+
+        #start:hover {
+            background-color: #e03e00;
+        }
+        
+        #start:active {
+            transform: scale(0.98);
+        }
+
+        #player {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Revolt AI Assistant</h1>
+        </header>
+        
+        <div id="status" class="status-bar">Idle</div>
+
+        <div class="transcript-box">
+            <h3>You Said:</h3>
+            <p id="in-txt">...</p>
+        </div>
+
+        <div class="transcript-box">
+            <h3>AI Said:</h3>
+            <p id="out-txt">...</p>
+        </div>
+
+        <button id="start">Start</button>
+
+        <audio id="player" autoplay></audio>
     </div>
-    <audio id="player" controls autoplay></audio>
-    <script type="module" src="./src/main.js"></script>
-  </body>
+
+    <script type="module" src="/src/main.js"></script>
+</body>
 </html>
