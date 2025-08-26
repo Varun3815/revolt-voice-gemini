@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Revolt Voice (Gemini Live)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body style="font-family: system-ui, -apple-system, Segoe UI, Roboto; margin: 2rem;">
+    <h1>Revolt Voice (Gemini Live)</h1>
+    <p>Click Start, speak. Click again to stop. Interrupt by speaking over the model.</p>
+    <button id="start">Start</button>
+    <span id="status">idle</span>
+    <div style="margin-top:1rem">
+      <strong>Input:</strong> <span id="in-txt"></span><br/>
+      <strong>Output:</strong> <span id="out-txt"></span>
+    </div>
+    <audio id="player" controls autoplay></audio>
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>
